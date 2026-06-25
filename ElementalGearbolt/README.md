@@ -22,7 +22,10 @@ llvm-objdump -d palmod.o
 
 
 ### Insert the binary payload into the EXE
-
+Generate the binary:
+```bash
+llvm-objdump -d palmod.o | sed -n 's/^.*: \(\([0-9a-f]\{2\} \)\{4\}\).*/\1/p' | xxd -r -p
+```
 
 
 ### Use `psxinject` to re-insert the modified PS-X EXE back into the CD Mode2 bin file:
