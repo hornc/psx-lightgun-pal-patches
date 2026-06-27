@@ -1,5 +1,6 @@
 .org 0x0c04
 .set noreorder
+.set noat
 # Write data to force PAL mode to 0x8005_12e8
 lui $t0, 0x8005
 li  $t1, 0x01

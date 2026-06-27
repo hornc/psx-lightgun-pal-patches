@@ -1,2 +1,4 @@
 *.bin
 *.o
+*_mod
+tmp_patch.*
