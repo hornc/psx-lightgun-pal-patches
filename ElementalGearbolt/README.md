@@ -14,29 +14,21 @@ shasum slus_006.54
 ```
 
 
-### Compile the patch fragments
+### Compile and insert patch fragments in `src/` (using [custom llvm compiler and patcher script](patcher.sh)):
 ```bash
-llvm-mc -filetype=obj -triple=mipsel-sony-psx src/palmod.s -mcpu=mips1 -o palmod.o
-llvm-objdump -d palmod.o
+./patcher.sh slus_006.54
 ```
 
 
-### Insert the binary payload into the EXE
-Generate the binary:
+### Use `psxinject` from [psximager](https://github.com/cebix/psximager) to re-insert the modified PS-X EXE back into the CD Mode2 bin file:
 ```bash
-llvm-objdump -d palmod.o | sed -n 's/^.*: \(\([0-9a-f]\{2\} \)\{4\}\).*/\1/p' | xxd -r -p
-```
-
-
-### Use `psxinject` to re-insert the modified PS-X EXE back into the CD Mode2 bin file:
-```bash
-./psxinject "Elemental Gearbolt (USA)_palmod.bin" SLUS_006.54 slus_006.54
+psxinject "Elemental Gearbolt (USA)_palmod.bin" SLUS_006.54 slus_006.54_mod
 ```
 
 
 ### Run the modified BIN/CUE using an emulator (Mednafen):
 ```bash
-mednafen Elemental\ Gearbolt\ \(USA\)_palmod.cue
+mednafen "Elemental Gearbolt (USA)_palmod.cue"
 ```
 
 Alternatively, burn the BIN/CUE to disc and run on a PAL model PSX.
