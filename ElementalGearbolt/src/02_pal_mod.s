@@ -5,6 +5,12 @@
 lui $at, 0x8005
 li  $t1, 0x01
 sb  $t1, 0x12e8($at)
+# Shift GP1(0x07)
+lui $at, 0x8003
+li  $t0, 0x26420007  # "addiu $v0, $s2, 0x7"
+li  $t1, 0x26240007  # "addiu $a0, $s1, 0x7"
+sw  $t0, -0xf68($at)
+sw  $t1, -0xf60($at)
 # GunCon / base X/Y in memcard adjust:
 lui $at, 0x8002
 li  $t0, 0x24092207  # "addiu	$t1, $0, 0x2207"
@@ -16,7 +22,7 @@ sw  $0, 0x7a98($at)  # clear sb $r0 -> ..f5
 # Justifier X: 0x8005_29e4, set via hw at 0x8002_57e8
 # Justifier Y: 0x8005_29ec, set via hw at 0x8002_57f0
 li  $t0, 0xfff4
-li  $t1, 0xffe0
+li  $t1, 0xffe7
 sh  $t0, 0x57e8($at)
 sh  $t1, 0x57f0($at)
 # Justifier only offset fix:
