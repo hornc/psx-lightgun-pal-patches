@@ -43,3 +43,6 @@ for src in src/*.s; do
 done
 
 echo Output file: $outfile
+
+echo Inject modifed PS-X EXE back into .bin:
+psxinject "Elemental Gearbolt (USA)_palmod.bin" SLUS_006.54 $outfile
