@@ -13,7 +13,7 @@ sw  $t0, -0xf68($at)
 sw  $t1, -0xf60($at)
 # GunCon / base X/Y in memcard adjust:
 lui $at, 0x8002
-li  $t0, 0x24092207  # "addiu	$t1, $0, 0x2207"
+li  $t0, 0x24092907  # "addiu	$t1, $0, 0x2907"
 sw  $t0, 0x7a8c($at)
 li  $t1, 0xa429      # change sb to sh, and r0 to t1
 sh  $t1, 0x7a92($at)
@@ -21,7 +21,7 @@ sw  $0, 0x7a98($at)  # clear sb $r0 -> ..f5
 # Justifier X/Y adjust:
 # Justifier X: 0x8005_29e4, set via hw at 0x8002_57e8
 # Justifier Y: 0x8005_29ec, set via hw at 0x8002_57f0
-li  $t0, 0xfff4
+li  $t0, 0xfff2
 li  $t1, 0xffe7
 sh  $t0, 0x57e8($at)
 sh  $t1, 0x57f0($at)
