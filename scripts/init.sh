@@ -5,7 +5,7 @@ echo Attempting to initialise a new PSX patch directory in $PWD
 
 if ! command -v psxrip &> /dev/null; then
   echo "Error: 'psxrip' (from https://github.com/cebix/psximager) is not installed or not in PATH." >&2
-    exit 1
+  exit 1
 fi
 
 # Get .BIN / .CUE
@@ -55,7 +55,7 @@ patch_file="src/00_patch.s"
 
 # Create patch template
 if [[ ! -f "$patch_file" ]]; then
-    cat << 'EOF' > "$patch_file"
+  cat << 'EOF' > "$patch_file"
 .org 0x????
 .set noreorder
 .set noat
