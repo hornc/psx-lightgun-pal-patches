@@ -9,17 +9,8 @@ source ../scripts/common.sh
 echo Using asm in src/ to patch $origfile to $outfile
 echo "$origsha  $origfile" | shasum --check  # en translation of LSD - Dream Emulator (Japan) SLPS_015.56
 
-cp $origfile $outfile
+apply_patch_src $origfile $outfile
 
-echo Files:
-ls src/*.s
-echo
-
-for src in src/*.s; do
-  inject_asm $src $outfile
-done
-
-echo Output file: $outfile
 
 echo Inject modifed PS-X EXE back into .bin:
 psxinject "LSD - Dream Emulator (Japan).bin" $origfile $outfile

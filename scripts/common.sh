@@ -20,3 +20,21 @@ inject_asm() {
   echo
   rm "$TMP_OBJ" "$TMP_BIN"
 }
+
+
+apply_patch_src() {
+  local origfile="$1"
+  local outfile="$2"
+
+  cp $origfile $outfile
+
+  echo Files:
+  ls src/*.s
+  echo
+
+  for src in src/*.s; do
+    inject_asm $src $outfile
+  done
+
+  echo Output file: $outfile
+}
