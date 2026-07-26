@@ -2,23 +2,6 @@
 # Usage: source ../scripts/common.sh
 
 
-require_target() {
-  local target="${1:-}"
-
-  if [[ -z "$target" ]]; then
-    echo "Error: Missing required target (original) PSX-EXE argument." >&2
-    echo "Usage: $0 <path/to/original_PSX-EXE>" >&2
-    return 1
-  fi
-
-  if [[ ! -f "$target" ]]; then
-    echo "Error: Target PSX-EXE '$target' does not exist or is not a regular file." >&2
-    return 1
-  fi
-  return 0
-}
-
-
 inject_asm() {
   local ASM="$1"
   local EXE_PATH="$2"
@@ -46,6 +29,12 @@ apply_patch_src() {
   local origsha="$3"
 
   echo Using asm in src/ to patch $origfile to $outfile
+
+  if [[ ! -f "$origfile" ]]; then
+    echo "Error: Target PS-X EXE '$origfile' does not exist." >&2
+    return 1
+  fi
+
   echo "$origsha  $origfile" | shasum --check
 
   cp $origfile $outfile

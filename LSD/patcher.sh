@@ -1,12 +1,11 @@
 #!/bin/bash
 set -e
-origfile="$1"  # PSX EXE!
+origfile="SLPS_015.56"  # PS-X EXE
 outfile=${origfile}_mod
 origsha="76322eeade5ebb22dca57fdeac7d68c30f06308d"
 
 source ../scripts/common.sh
 
-require_target $origfile
 apply_patch_src $origfile $outfile $origsha
 
 echo Inject modifed PS-X EXE back into .bin:
