@@ -1,12 +1,12 @@
 #!/bin/bash
 set -e
-origexe="SLUS_006.54"
+origexe="SLPS_015.56"
 outexe=${origexe}_mod
-origsha="37f984b09f10f47e4788af71839ecbabd91da4b3"
+origsha="76322eeade5ebb22dca57fdeac7d68c30f06308d"
 
 source ../scripts/common.sh
 
 apply_patch_src $origexe $outexe $origsha
 
 echo Inject modifed PS-X EXE back into .bin:
-psxinject "Elemental Gearbolt (USA)_mod.bin" $origexe $outexe
+psxinject "LSD - Dream Emulator (Japan)_mod.bin" $origexe $outexe
