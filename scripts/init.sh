@@ -9,12 +9,12 @@ if ! command -v psxrip &> /dev/null; then
 fi
 
 # Get .BIN / .CUE
-shopt -s nullglob
-bin_files=(*.bin *.BIN)
-cue_files=(*.cue *.CUE)
-shopt -u nullglob
+shopt -s nullglob extglob
+bin_files=(!(*_mod)@(.bin|.BIN))
+cue_files=(!(*_mod)@(.cue|.CUE))
+shopt -u nullglob extglob
 
-# Check exactly one of each:
+# Check exactly one of each un-modded:
 for ext in bin cue; do
   declare -n files="${ext}_files"
   if [[ ${#files[@]} -ne 1 ]]; then
@@ -29,6 +29,8 @@ base="${cue_path%.*}"
 
 echo BASE: $base
 
+
+# Dump BIN filesystem:
 TMP_DIR="$(mktemp -d -t psxrip_XXXXXX)"
 
 cleanup() {
@@ -41,33 +43,61 @@ trap cleanup EXIT
 # Extract all files from BIN to locate the .EXE
 psxrip "$cue_path" $TMP_DIR
 
+
+# Get main PS-X EXE:
 psxexe=$(fgrep "BOOT =" "$TMP_DIR/SYSTEM.CNF" | sed "s/BOOT[^\\]*.\([^;]\+\).*/\1/")
-echo PSX-EXE found: $psxexe
+echo -e "\nPSX-EXE found: $psxexe"
 cp "$TMP_DIR/$psxexe" .
 shasum=$(shasum $psxexe)
+# extract offsets from PS-X EXE
+read exe_offset load_offset <<<$(xxd -e -s16 -l12 $psxexe | cut -f2,4 -d' ')
+region=$(tail -c+114 $psxexe | head -c20 | tr -d '\0')
+echo REGION: $region
+echo LOAD: $load_offset EXE: $exe_offset
 echo SHASUM: $shasum
 
+
 # Create sub-project .gitignore:
-echo $psxexe >> .gitignore
+if [[ ! -f .gitignore ]]; then
+  echo $psxexe >> .gitignore
+fi
 
-mkdir -p src
-patch_file="src/00_patch.s"
 
-# Create patch template
-if [[ ! -f "$patch_file" ]]; then
+# Create src dir, if not present
+if [[ ! -d src ]]; then
+  mkdir -p src
+  patch_file="src/00_patch.s"
+
   cat << 'EOF' > "$patch_file"
 .org 0x????
 .set noreorder
 .set noat
 
 EOF
-  echo "Created template: $patch_file"
+  echo "Created src/ dir and template: $patch_file"
 fi
 
-# Probably don't want to do this; just work off the orignal BIN/CUE?
-#sed "s/${bin_path}/${base}_mod.bin/" "$cue_path" > "${base}_mod.cue"
-#cp "$bin_path" "${base}_mod.bin"
 
-# TODO:
-# create patcher.sh boilerplate ...
+# Copy original .BIN/.CUE to _mod versions for modification and comparison
+echo Creating ${base}_mod.bin and ${base}_mod.cue ...
+sed "s/${bin_path}/${base}_mod.bin/" "$cue_path" > "${base}_mod.cue"
+cp "$bin_path" "${base}_mod.bin"
+
+
+echo Creating patcher.sh ...
+cat << EOF > "patcher.sh"
+#!/bin/bash
+set -e
+origexe="$psxexe"
+outexe=\${origexe}_mod
+origsha="$(cut -f1 -d' ' <<< $shasum)"
+
+source ../scripts/common.sh
+
+apply_patch_src \$origexe \$outexe \$origsha
+
+echo Inject modifed PS-X EXE back into .bin:
+psxinject "${base}_mod.bin" \$origexe \$outexe
+EOF
+chmod +x patcher.sh
 
