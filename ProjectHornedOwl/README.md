@@ -12,4 +12,4 @@
 ### Testing
 | Mednafen | Duckstation | PAL PSX, Justifer | PAL PSX, GunCon |
 | :---:    | :---:       | :---:             | :---:           |
-| X        |             |                   |                 |
+| X        | -           | -                 | n/a             |
