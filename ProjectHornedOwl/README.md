@@ -7,7 +7,7 @@
 ### Mod Features
 | PAL  | Y-Centred | Justifer | GunCon |
 | :---:| :---:     | :---:    | :---:  |
-| X    | -         | X        | -      |
+| X    | X         | X        | -      |
 
 ### Testing
 | Mednafen | Duckstation | PAL PSX, Justifer | PAL PSX, GunCon |
