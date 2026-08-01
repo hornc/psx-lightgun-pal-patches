@@ -1,4 +1,4 @@
 *.bin
+*.cue
 *.o
 *_mod
-tmp_patch.*
