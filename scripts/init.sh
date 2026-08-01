@@ -14,14 +14,12 @@ bin_files=(!(*_mod)@(.bin|.BIN))
 cue_files=(!(*_mod)@(.cue|.CUE))
 shopt -u nullglob extglob
 
-# Check exactly one of each un-modded:
-for ext in bin cue; do
-  declare -n files="${ext}_files"
-  if [[ ${#files[@]} -ne 1 ]]; then
-    echo "Error: Expected exactly 1 .${ext} file, found ${#files[@]}." >&2
-    exit 1
-  fi
-done
+# Check for exactly one .cue file
+if [[ ${#cue_files[@]} -ne 1 ]]; then
+  echo "Error: Expected exactly 1 .cue file, found ${#cue_files[@]}." >&2
+  exit 1
+fi
+
 
 bin_path="${bin_files[0]}"
 cue_path="${cue_files[0]}"
