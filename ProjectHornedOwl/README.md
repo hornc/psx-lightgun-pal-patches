@@ -1,15 +1,17 @@
 # Project: Horned Owl
 
-| Game                                                                    | Publisher/Dev                                            | Date | Justifier |  GunCon | Players | NTSC | PAL | Regions |
-| :---                                                                    | :---                                                     | :--- | :---:     | :---:   | :---:   | :---:|:---:| :---:   |
-| [Project: Horned Owl](https://en.wikipedia.org/wiki/Project_Horned_Owl) | Sony / [Alfa](https://en.wikipedia.org/wiki/Alfa_System) | 1995 | X         |  -      | 2       | X    | -   | Jp,Na   |
+### Patch Status: Under Development
+
+| Game                                                                    | Publisher/Dev                                                   | Date | Justifier |  GunCon | Players | NTSC | PAL | Regions |
+| :---                                                                    | :---                                                            | :--- | :---:     | :---:   | :---:   | :---:|:---:| :---:   |
+| [Project: Horned Owl](https://en.wikipedia.org/wiki/Project_Horned_Owl) | Sony / [Alfa System](https://en.wikipedia.org/wiki/Alfa_System) | 1995 | ✔         | ✖       | 2       | ✔    | ✖   | Jp, Na  |
 
 ### Mod Features
-| PAL  | Y-Centred | Justifer | GunCon |
-| :---:| :---:     | :---:    | :---:  |
-| X    | X         | X        | -      |
+| PAL  | Y-Centred | Speed Adjust | Justifer | GunCon |
+| :---:| :---:     | :---:        | :---:    | :---:  |
+| ✔    | ✔         | ☐            | ✔        | ✖      |
 
 ### Testing
 | Mednafen | Duckstation | PAL PSX, Justifer | PAL PSX, GunCon |
 | :---:    | :---:       | :---:             | :---:           |
-| X        | -           | -                 | n/a             |
+| ✔        | ✖           | ☐                 | n/a             |

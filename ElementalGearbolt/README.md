@@ -3,19 +3,24 @@
 Patches this NTSC only game for PAL consoles,
 and adjusts the lightgun geometry for Justifier and GunGon controllers.
 
-| Game                                                                   | Publisher/Dev                                                       | Date | Justifier |  GunCon | Players | NTSC | PAL | Regions |
-| :---                                                                   | :---                                                                | :--- | :---:     | :---:   | :---:   | :---:|:---:| :---:   |
-| [Elemental Gearbolt](https://en.wikipedia.org/wiki/Elemental_Gearbolt) | Working Designs / [Alfa](https://en.wikipedia.org/wiki/Alfa_System) | 1997 | X         |  X      | 2       | X    | -   | Jp,Na   |
+There _is_ a NTSC to PAL game slowdown. It doesn't seem _too_ noticible, not as bad as the slowdown in _Project: Horned Owl_, which affects dialog triggers, cut-offs, and gameplay a little more.
+Needs further testing. I've yet to figure out the timing loops to see if there is a way to adjust this via the patch.
+
+### Patch Status: Under Development
+
+| Game                                                                   | Publisher/Dev                                                              | Date | Justifier | GunCon | Players |NTSC|PAL | Regions |
+| :---                                                                   | :---                                                                       | :--- | :---:     | :---:  | :---:   |:--:|:--:| :---:   |
+| [Elemental Gearbolt](https://en.wikipedia.org/wiki/Elemental_Gearbolt) | Working Designs / [Alfa System](https://en.wikipedia.org/wiki/Alfa_System) | 1997 | ✔         | ✔      | 2       | ✔  | ✖  | Jp, Na  |
 
 ### Mod Features
-| PAL  | Y-Centred | Justifer | GunCon |
-| :---:| :---:     | :---:    | :---:  |
-| X    | X         | X        | X      |
+| PAL  | Y-Centred | Speed Adjust | Justifer | GunCon |
+| :---:| :---:     | :---:        | :---:    | :---:  |
+| ✔    | ✔         |  ☐           | ✔        | ✔      |
 
 ### Testing
 | Mednafen | Duckstation | PAL PSX, Justifer | PAL PSX, GunCon |
 | :---:    | :---:       | :---:             | :---:           |
-| X        | -           | X                 | -               |
+| ✔        | ✔           | !                 | ☐               |
 
 
 
@@ -40,7 +45,7 @@ This script also uses `psxinject` from [psximager](https://github.com/cebix/psxi
 
 ### Run the modified BIN/CUE using an emulator (Mednafen):
 ```bash
-mednafen "Elemental Gearbolt (USA)_mod.cue"
+mednafen --psx.region_default eu "Elemental Gearbolt (USA)_mod.cue"
 ```
 
 Alternatively, burn the BIN/CUE to disc and run on a PAL model PSX.
