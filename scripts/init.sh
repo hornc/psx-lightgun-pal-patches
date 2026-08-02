@@ -43,7 +43,7 @@ psxrip "$cue_path" $TMP_DIR
 
 
 # Get main PS-X EXE:
-psxexe=$(fgrep "BOOT =" "$TMP_DIR/SYSTEM.CNF" | sed "s/BOOT[^\\]*.\([^;]\+\).*/\1/")
+psxexe=$(fgrep "BOOT =" "$TMP_DIR/SYSTEM.CNF" | sed "s/BOOT[^\\]*.\([^;]\+\).*/\U\1/")
 echo -e "\nPSX-EXE found: $psxexe"
 cp "$TMP_DIR/$psxexe" .
 shasum=$(shasum $psxexe)
